@@ -1,0 +1,44 @@
+{
+  "name": "vehicle",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "owner_name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string"
+    },
+    "pan_no": {
+      "type": "string"
+    },
+    "adhaar_no": {
+      "type": "string"
+    },
+    "contact_no": {
+      "type": "string"
+    },
+    "bank": {
+      "type": "object"
+    },
+    "gst_type": {
+      "type": "string"
+    },
+    "gstin": {
+      "type": "string"
+    },
+    "vehicles": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -29,5 +29,17 @@
   "Todo": {
     "dataSource": "db",
     "public": true
+  },
+  "party": {
+    "dataSource": "db",
+    "public": true
+  },
+  "bank": {
+    "dataSource": "db",
+    "public": true
+  },
+  "vehicle": {
+    "dataSource": "db",
+    "public": true
   }
 }

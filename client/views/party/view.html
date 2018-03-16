@@ -1,0 +1,30 @@
+<h3>Parties</h3>
+<hr>
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Firm Name</th>
+            <th>Legal Name</th>
+            <th>GSTIN</th>
+            <th>Contact</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="party in parties">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ party.firm_name }}</td>
+            <td>{{ party.legal_name }}</td>
+            <td>{{ party.gstin }}</td>
+            <td>{{ party.contact }}</td>
+            <td>
+                <button class="btn btn-xs btn-primary" ui-sref="admin.edit_party({partyId: party.id})">Edit</button>
+                <button class="btn btn-xs btn-danger" ng-click="removeParty(party.id)">Del</button>
+            </td>
+        </tr>
+        <tr ng-if="parties.length == 0">
+            <td colspan="6" class="text-center">No records to display</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,159 @@
+<form class="form-horizontal" method="post" novalidate>
+    <fieldset>
+        <legend>Vehicle Master</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="owner_name">Owner Name</label>
+            <div class="col-md-5">
+                <input id="owner_name" type="text" ng-model="vehicle.owner_name" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="address">Address</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="address" ng-model="vehicle.address"></textarea>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="contact_no">Contact No.</label>
+            <div class="col-md-5">
+                <input id="contact_no" name="contact_no" type="text" ng-model="vehicle.contact_no" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="pan_no">PAN no</label>
+            <div class="col-md-5">
+                <input id="pan_no" name="pan_no" type="text" ng-model="vehicle.pan_no" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="adhaar_no">Adhaar No</label>
+            <div class="col-md-5">
+                <input id="adhaar_no" name="adhaar_no" type="text" ng-model="vehicle.adhaar_no" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <!-- Multiple Radios -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gst_type">GST Registration</label>
+            <div class="col-md-4">
+                <div class="radio">
+                    <label for="gst_type-0">
+                        <input type="radio" ng-model="vehicle.gst_type" name="gst_type" id="gst_type-0" value="No"> No
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="gst_type-1">
+                        <input type="radio" ng-model="vehicle.gst_type" name="gst_type" id="gst_type-1" value="Regular"> Regular
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="gst_type-2">
+                        <input type="radio" ng-model="vehicle.gst_type" name="gst_type" id="gst_type-2" value="Composition"> Composition
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group" ng-show="vehicle.gst_type != 'No'">
+            <label class="col-md-4 control-label" for="gstin">GSTIN</label>
+            <div class="col-md-5">
+                <input id="gstin" name="gstin" type="text" ng-model="vehicle.gstin" class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Owner Vehicles</label>
+            <div class="col-md-4">
+                <ol ng-if="vehicle.vehicles.length > 0">
+                    <li ng-repeat="veh in vehicle.vehicles">{{ veh.reg_no }}
+                        <a class="btn btn-xs" ng-click="removeVeh($index)"><i class="glyphicon glyphicon-remove"></i></a>
+                    </li>
+                </ol>
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#vehicle">Add Vehicle</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="bank_name">Bank Name</label>
+            <div class="col-md-5">
+                <input id="bank_name" type="text" ng-model="vehicle.bank.bank_name" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ac_no">A/C No.</label>
+            <div class="col-md-5">
+                <input id="ac_no" type="text" ng-model="vehicle.bank.ac_no" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ifsc_code">IFSC Code</label>
+            <div class="col-md-5">
+                <input id="ifsc_code" type="text" ng-model="vehicle.bank.ifsc_code" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="branch">Branch</label>
+            <div class="col-md-5">
+                <input id="branch" type="text" ng-model="vehicle.bank.branch" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="save"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-lg btn-primary" ng-click="addVehicle()">Save</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="vehicle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Vehicles</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="reg_no">Reg. No.</label>
+                            <div class="col-md-5">
+                                <input id="reg_no" ng-model="svehicle.reg_no" type="text" placeholder="" class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="details">Other Details</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="details" ng-model="svehicle.details"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="addVeh()" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

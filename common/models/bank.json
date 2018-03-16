@@ -1,0 +1,26 @@
+{
+  "name": "bank",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "ac_no": {
+      "type": "string"
+    },
+    "ifsc": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "bank_name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

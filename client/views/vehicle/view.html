@@ -1,0 +1,30 @@
+<h3>Vehicles</h3>
+<hr>
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Owner Name</th>
+            <th>Contact No</th>
+            <th>Vehicles</th>
+            <th>GST Type</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="vehicle in vehicles">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ vehicle.owner_name }}</td>
+            <td>{{ vehicle.contact_no }}</td>
+            <td>{{ vehicle.vehicles.length }}</td>
+            <td>{{ vehicle.gst_type }}</td>
+            <td>
+                <button class="btn btn-xs btn-primary" ui-sref="admin.edit_vehicle({vehicleId: vehicle.id})">Edit</button>
+                <button class="btn btn-xs btn-danger" ng-click="remove(vehicle.id)">Del</button>
+            </td>
+        </tr>
+        <tr ng-if="vehicles.length == 0">
+            <td colspan="6" class="text-center">No records to display</td>
+        </tr>
+    </tbody>
+</table>

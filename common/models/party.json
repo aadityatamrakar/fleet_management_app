@@ -1,0 +1,33 @@
+{
+  "name": "party",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firm_name": {
+      "type": "string",
+      "required": true
+    },
+    "legal_name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "gstin": {
+      "type": "string"
+    },
+    "pan_no": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

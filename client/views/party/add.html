@@ -1,0 +1,96 @@
+<form class="form-horizontal" novalidate method="post">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Party Master</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="firm_name">Name of Firm</label>
+            <div class="col-md-5">
+                <input id="firm_name" name="firm_name" type="text" ng-model="party.firm_name" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="legal_name">Legal Name</label>
+            <div class="col-md-5">
+                <input id="legal_name" name="legal_name" type="text" ng-model="party.legal_name" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="address">Address</label>
+            <div class="col-md-5">
+                <textarea class="form-control" ng-model="party.address" id="address" name="address"></textarea>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="contact_no">Contact No</label>
+            <div class="col-md-5">
+                <input id="contact_no" name="contact_no" type="text" ng-model="party.contact" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gstin">GSTIN</label>
+            <div class="col-md-5">
+                <input id="gstin" name="gstin" type="text" ng-model="party.gstin" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="pan_no">PAN no</label>
+            <div class="col-md-5">
+                <input type="text" ng-model="party.pan_no" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="bank_name">Bank Name</label>
+            <div class="col-md-5">
+                <input id="bank_name" type="text" ng-model="party.bank.bank_name" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ac_no">A/C No.</label>
+            <div class="col-md-5">
+                <input id="ac_no" type="text" ng-model="party.bank.ac_no" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ifsc_code">IFSC Code</label>
+            <div class="col-md-5">
+                <input id="ifsc_code" type="text" ng-model="party.bank.ifsc_code" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="branch">Branch</label>
+            <div class="col-md-5">
+                <input id="branch" type="text" ng-model="party.bank.branch" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="save"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary" ng-click="addParty()">Save</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
