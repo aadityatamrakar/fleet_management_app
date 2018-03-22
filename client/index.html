@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Transport Management System</title>
 
-    <!-- Bootstrap -->
-    <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="vendor/ng-notify/dist/ng-notify.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transport Management System</title>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+  <!-- Bootstrap -->
+  <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <link href='vendor/angular-loading-bar/build/loading-bar.min.css' rel='stylesheet'/>
+  <link href="vendor/ng-notify/dist/ng-notify.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body ng-app="app">
+</head>
 
-      <div ui-view></div>
+<body ng-app="app">
 
-    <script src="vendor/jquery/dist/jquery.js"></script>
-    <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="vendor/angular/angular.js"></script>
-    <script src="vendor/angular-resource/angular-resource.js"></script>
-    <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="vendor/ng-notify/dist/ng-notify.min.js"></script>
-    <script src="js/services/lb-services.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers/todo.js"></script>
-    <script src="js/controllers/party.js"></script>
-    <script src="js/controllers/vehicle.js"></script>
-    <script src="js/controllers/builty.js"></script>
-  </body>
+  <div ui-view></div>
+
+  <script src="vendor/jquery/dist/jquery.js"></script>
+  <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="vendor/angular/angular.js"></script>
+  <script src="vendor/angular-resource/angular-resource.js"></script>
+  <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src='vendor/angular-loading-bar/build/loading-bar.min.js'></script>
+  <script src="vendor/ng-notify/dist/ng-notify.min.js"></script>
+  <script src="js/services/lb-services.js"></script>
+  <script src="js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  <script src="js/controllers/todo.js"></script>
+  <script src="js/controllers/party.js"></script>
+  <script src="js/controllers/vehicle.js"></script>
+  <script src="js/controllers/builty.js"></script>
+  <script src="js/controllers/setting.js"></script>
+  <script src="js/controllers/common.js"></script>
+</body>
+
 </html>

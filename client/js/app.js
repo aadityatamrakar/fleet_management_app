@@ -3,7 +3,7 @@ angular
   .module('app', [
     'lbServices',
     'ui.router',
-    'ngNotify'
+    'ngNotify','angular-loading-bar'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
       $urlRouterProvider) {
@@ -56,10 +56,27 @@ angular
           controller: 'VehicleViewController'
         })
 
+        .state('admin.material', {
+          url: '/material/index',
+          templateUrl: 'views/admin/material.html',
+          controller: 'MaterialController'
+        })
+        .state('admin.company', {
+          url: '/company/index',
+          templateUrl: 'views/admin/company.html',
+          controller: 'CompanyController'
+        })
+
         .state('admin.builty', {
           url: '/builty/create',
           templateUrl: 'views/admin/builty.html',
           controller: 'BuiltyController'
+        })
+
+        .state('admin.setting', {
+          url: '/setting',
+          templateUrl: 'views/admin/setting.html',
+          controller: 'SettingController'
         })
         
         .state('public.index', {

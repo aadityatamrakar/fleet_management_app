@@ -12,43 +12,36 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="gr_no">GR Details</label>
                     <div class="col-md-4">
-                        <input id="gr_no" name="gr_no" type="text" placeholder="No." class="form-control input-md" required="">
+                        <input readonly ng-model="builty.gr_no_view" type="text" placeholder="No." class="form-control input-md">
                     </div>
                     <div class="col-md-4">
-                        <input id="gr_date" name="gr_date" type="text" placeholder="Date" class="form-control input-md" required="">
+                        <input readonly ng-model="builty.gr_date" type="text" placeholder="Date" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="delivery_point">Delivery Point</label>
                     <div class="col-md-8">
-                        <input id="delivery_point" name="delivery_point" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="delivery_point" name="delivery_point" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="branch_code">Branch Code</label>
+                    <label class="col-md-4 control-label" for="pickup_point">Pickup Point</label>
                     <div class="col-md-8">
-                        <input id="branch_code" name="branch_code" type="text" placeholder="" class="form-control input-md" required="">
+                        <select data-type="select2" name="pickup_point" class="form-control input-md">
+                            <option value="">--select--</option>
+                            <option ng-repeat="pickup in pickup_point">{{ pickup }}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="paid_by">Paid By</label>
                     <div class="col-md-8">
-                        <select id="paid_by" name="paid_by" class="form-control">
-                            <option value="">Consignee</option>
-                            <option value="">Consignor</option>
+                        <select ng-model="builty.paid_by" ng-change="updatePaidBy()" class="form-control">
+                            <option value="">--select--</option>
+                            <option value="Consignee">Consignee</option>
+                            <option value="Consignor">Consignor</option>
+                            <option value="GTA">GTA</option>
                         </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="vehicle">Vehicle</label>
-                    <div class="col-md-8">
-                        <input id="vehicle" name="vehicle" type="text" placeholder="" class="form-control input-md" required="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="driver">Driver</label>
-                    <div class="col-md-8">
-                        <input id="driver" name="driver" type="text" placeholder="" class="form-control input-md" required="">
                     </div>
                 </div>
             </fieldset>
@@ -62,13 +55,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="from_city">From City</label>
                     <div class="col-md-8">
-                        <input id="from_city" name="from_city" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="from_city" name="from_city" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="consignee">Consignee</label>
                     <div class="col-md-8">
-                        <select id="consignee" ng-click="updateContact('consignee')" ng-model="builty.consignee" class="form-control">
+                        <select data-type="select2" ng-change="updateContact('consignee')" ng-model="builty.consignee" class="form-control">
                             <option value="">--SELECT--</option>
                             <option ng-repeat="party in parties" value="{{party.id}}">{{party.firm_name}}</option>
                         </select>
@@ -77,13 +70,19 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="consignee_address">Address</label>
                     <div class="col-md-8">
-                        <textarea class="form-control" id="consignee_address" name="consignee_address"></textarea>
+                        <textarea class="form-control" id="consignee_address" ng-model="builty.consignee_address"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="consignee_contact">Contact</label>
                     <div class="col-md-8">
-                        <input id="consignee_contact" name="consignee_contact" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="consignee_contact" ng-model="builty.consignee_contact" type="text" class="form-control input-md">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="consignee_gstin">GSTIN</label>
+                    <div class="col-md-8">
+                        <input id="consignee_gstin" ng-model="builty.consignee_gstin" type="text" class="form-control input-md">
                     </div>
                 </div>
             </fieldset>
@@ -97,13 +96,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="destination">Destination</label>
                     <div class="col-md-8">
-                        <input id="destination" name="destination" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="destination" name="destination" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="consignor">Consignor</label>
                     <div class="col-md-8">
-                        <select id="consignor" name="consignor" class="form-control">
+                        <select data-type="select2" ng-change="updateContact('consignor')" ng-model="builty.consignor" class="form-control">
                             <option value="">--SELECT--</option>
                             <option ng-repeat="party in parties" value="{{party.id}}">{{party.firm_name}}</option>
                         </select>
@@ -112,13 +111,19 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="consignor_address">Address</label>
                     <div class="col-md-8">
-                        <textarea class="form-control" id="consignor_address" name="consignor_address"></textarea>
+                        <textarea class="form-control" id="consignor_address" ng-model="builty.consignor_address"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="consignor_contact">Contact</label>
                     <div class="col-md-8">
-                        <input id="consignor_contact" name="consignor_contact" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="consignor_contact" ng-model="builty.consignor_contact" type="text" class="form-control input-md">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="consignor_gstin">GSTIN</label>
+                    <div class="col-md-8">
+                        <input id="consignor_gstin" ng-model="builty.consignor_gstin" type="text" class="form-control input-md">
                     </div>
                 </div>
 
@@ -126,7 +131,62 @@
         </form>
     </div>
 
-</div> <!-- ROW -->
+</div>
+<!-- ROW -->
+
+<hr>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" novalidate class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="vehicle">Vehicle</label>
+                    <div class="col-md-8">
+                        <input id="vehicle" name="vehicle" type="text" class="form-control input-md">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="driver">Driver</label>
+                    <div class="col-md-8">
+                        <input id="driver" name="driver" type="text" class="form-control input-md">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form method="post" novalidate class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="vehicle">Owner Name</label>
+                    <div class="col-md-8">
+                        <input id="vehicle" name="vehicle" type="text" class="form-control input-md">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="driver">Contact</label>
+                    <div class="col-md-8">
+                        <input id="driver" name="driver" type="text" class="form-control input-md">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form method="post" novalidate class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="vehicle">Remark</label>
+                    <div class="col-md-8">
+                        <input id="vehicle" name="vehicle" type="text" class="form-control input-md">
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
 
 <hr>
 
@@ -136,31 +196,29 @@
         <table class="table table-striped table-responsive">
             <thead>
                 <tr>
-                    <th colspan="7">Package Material Detail</th>
+                    <th colspan="6">Package Material Detail</th>
                     <th>
                         <button data-toggle="modal" data-target="#packageMaterialDetail" class="btn btn-xs btn-primary">Add Material</button>
                     </th>
                 </tr>
                 <tr>
                     <th>No of Pkgs</th>
-                    <th class="hidden-xs">Method of Packing</th>
-                    <th class="hidden-xs">Description</th>
-                    <th>Actual Wgt.</th>
-                    <th>Rate</th>
-                    <th class="hidden-xs">Price M</th>
-                    <th class="hidden-xs">CFT</th>
+                    <th>Material</th>
+                    <th>Qty.</th>
+                    <th>UOM</th>
+                    <th>Pay Rate</th>
                     <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="m in builty.materials">
                     <td>{{ m.no_of_pkg }}</td>
-                    <td class="hidden-xs">{{ m.packing_method }}</td>
-                    <td class="hidden-xs">{{ m.description }}</td>
-                    <td>{{ m.actual_weight }}</td>
-                    <td>{{ m.rate }}</td>
-                    <td class="hidden-xs">{{ m.price_market }}</td>
-                    <td class="hidden-xs">{{ m.cft }}</td>
+                    <td>{{ m.material }}</td>
+                    <td>{{ m.quantity }}</td>
+                    <td>{{ m.uom }}</td>
+                    <td>₹ {{ m.rate }}</td>
+                    <td>₹ {{ m.total }}</td>
                     <td>
                         <button class="btn btn-xs btn-danger" ng-click="delPkg($index)">Del</button>
                     </td>
@@ -176,32 +234,57 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="freight">Freight</label>
                     <div class="col-md-8">
-                        <input id="freight" name="freight" type="text" placeholder="Per KG/CFT" class="form-control input-md" required="">
+                        <div class="input-group">
+                            <span class="input-group-addon">₹</span>
+                            <input ng-model="builty.freight" type="text" class="form-control input-md">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="gst_tax">GST Tax</label>
+                    <label class="col-md-4 control-label" for="cgst_tax">CGST</label>
                     <div class="col-md-8">
-                        <input id="gst_tax" name="gst_tax" type="text" placeholder="" class="form-control input-md" required="">
+                        <div class="input-group">
+                            <span class="input-group-addon">2.5%</span>
+                            <input id="cgst_tax" name="cgst_tax" type="text" class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="sgst_tax">SGST</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">2.5%</span>
+                            <input id="sgst_tax" name="sgst_tax" type="text" class="form-control input-md">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="igst_tax">IGST/UTGST</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">5%</span>
+                            <input id="igst_tax" name="igst_tax" type="text" class="form-control input-md">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="total">Total</label>
                     <div class="col-md-8">
-                        <input id="total" name="total" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="total" name="total" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="advance_pay">Advance Payment</label>
                     <div class="col-md-8">
-                        <input id="advance_pay" name="advance_pay" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="advance_pay" name="advance_pay" type="text" class="form-control input-md">
                     </div>
                 </div>
             </fieldset>
         </form>
     </div>
 
-</div> <!-- ROW -->
+</div>
+<!-- ROW -->
 
 
 <div class="modal fade" id="packageMaterialDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -214,52 +297,45 @@
                 <h4 class="modal-title">Package Details</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" novalidate method="post">
                     <fieldset>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="no_of_pkg">No of Pkg</label>
                             <div class="col-md-6">
-                                <input id="no_of_pkg" ng-model="pkg.no_of_pkg" type="text" placeholder="" class="form-control input-md" required="">
+                                <input id="no_of_pkg" ng-model="pkg.no_of_pkg" type="text" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="packing_method">Packing Mehod</label>
+                            <label class="col-md-4 control-label" for="material">Material</label>
                             <div class="col-md-6">
-                                <input id="packing_method" ng-model="pkg.packing_method" type="text" placeholder="" class="form-control input-md" required="">
+                                <select data-type="select2" ng-model="pkg.material" class="form-control" ng-change="updateMaterial()" style="width: 100%;">
+                                    <option value=""></option>
+                                    <option ng-repeat="material in materials" value="{{ material.name }}">{{ material.name }}</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="description">Description</label>
-                            <div class="col-md-8">
-                                <input id="description" ng-model="pkg.description" type="text" placeholder="" class="form-control input-md" required="">
+                            <label class="col-md-4 control-label" for="quantity">Quantity</label>
+                            <div class="col-md-6">
+                                <input id="quantity" ng-model="pkg.quantity" type="text" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="actual_weight">Actual Weight</label>
+                            <label class="col-md-4 control-label" for="uom">Unit of Measurement</label>
                             <div class="col-md-6">
-                                <input id="actual_weight" ng-model="pkg.actual_weight" type="text" placeholder="" class="form-control input-md" required="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="rate">Rate</label>
-                            <div class="col-md-6">
-                                <input id="rate" ng-model="pkg.rate" type="text" placeholder="" class="form-control input-md" required="">
+                                <input id="uom" ng-model="pkg.uom" type="text" class="form-control input-md">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="price_market">Price Market</label>
+                            <label class="col-md-4 control-label" for="rate">Pay Rate</label>
                             <div class="col-md-6">
-                                <input id="price_market" ng-model="pkg.price_market" type="text" placeholder="" class="form-control input-md" required="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="cft">CFT</label>
-                            <div class="col-md-6">
-                                <input id="cft" ng-model="pkg.cft" type="text" placeholder="" class="form-control input-md" required="">
+                                <div class="input-group">
+                                    <span class="input-group-addon">₹</span>
+                                    <input id="rate" ng-model="pkg.rate" type="text" class="form-control input-md">
+                                </div>
                             </div>
                         </div>
                     </fieldset>

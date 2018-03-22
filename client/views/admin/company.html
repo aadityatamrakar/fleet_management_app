@@ -1,0 +1,118 @@
+<h3>Company</h3>
+<hr>
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name of Company</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Action
+                <button data-toggle="modal" data-target="#companyModal" class="btn btn-xs btn-primary pull-right">
+                    <i class="glyphicon glyphicon-plus"></i> Add</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="company in companies">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ company.title }}</td>
+            <td>{{ company.state }}</td>
+            <td>{{ company.city }}</td>
+            <td>
+                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#companyModal" ng-click="edit(company.id)">Edit</button>
+                <button class="btn btn-xs btn-danger" ng-click="remove(company.id)">Del</button>
+            </td>
+        </tr>
+        <tr ng-if="companys.length == 0">
+            <td colspan="5" class="text-center">No records to display</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="companyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Company Form</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="title">Name of Company</label>
+                            <div class="col-md-5">
+                                <input id="title" ng-model="company.title" type="text" class="form-control input-md" required="">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="contact">Contact</label>
+                            <div class="col-md-5">
+                                <input id="contact" ng-model="company.contact" type="text" class="form-control input-md">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="gstin">GSTIN</label>
+                            <div class="col-md-5">
+                                <input id="gstin" ng-model="company.gstin" type="text" class="form-control input-md">
+
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="city">City</label>
+                            <div class="col-md-5">
+                                <input id="city" ng-model="company.city" type="text" class="form-control input-md">
+
+                            </div>
+                        </div>
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="state">State</label>
+                            <div class="col-md-5">
+                                <select id="state" ng-model="company.state" class="form-control">
+                                    <option value="">--select--</option>
+                                    <option ng-repeat="s in states" value="{{ s }}">{{ s }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Textarea -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="address">Address</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="address" ng-model="company.address"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="save"></label>
+                            <div class="col-md-4">
+                                <button id="save" name="save" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

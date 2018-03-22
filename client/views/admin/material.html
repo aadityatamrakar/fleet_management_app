@@ -1,0 +1,84 @@
+<h3>Materials</h3>
+<hr>
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>UOM</th>
+            <th>Rate</th>
+            <th>Action <button data-toggle="modal" data-target="#materialModal" class="btn btn-xs btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i> Add</button></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="material in materials">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ material.name }}</td>
+            <td>{{ material.uom }}</td>
+            <td>{{ material.rate }}</td>
+            <td>
+                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#materialModal" ng-click="edit(material.id)">Edit</button>
+                <button class="btn btn-xs btn-danger" ng-click="remove(material.id)">Del</button>
+            </td>
+        </tr>
+        <tr ng-if="materials.length == 0">
+            <td colspan="5" class="text-center">No records to display</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="materialModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Material Form</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">Name</label>
+                            <div class="col-md-5">
+                                <input id="name" ng-model="material.name" type="text" class="form-control input-md">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="uom">Unit of Measurement</label>
+                            <div class="col-md-5">
+                                <input id="uom" ng-model="material.uom" type="text" class="form-control input-md">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="rate">Rate</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">₹</span>
+                                    <input id="rate" ng-model="material.rate" class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="description">Description</label>
+                            <div class="col-md-6">
+                                <input id="description" ng-model="material.description" type="text" class="form-control input-md">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

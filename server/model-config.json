@@ -41,5 +41,17 @@
   "vehicle": {
     "dataSource": "db",
     "public": true
+  },
+  "setting": {
+    "dataSource": "db",
+    "public": true
+  },
+  "material": {
+    "dataSource": "db",
+    "public": true
+  },
+  "company": {
+    "dataSource": "db",
+    "public": true
   }
 }

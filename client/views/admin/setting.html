@@ -1,0 +1,29 @@
+<form class="form-horizontal" method="post" novalidate>
+    <fieldset>
+        <legend>Settings</legend>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gr_prefix">GR Prefix</label>
+            <div class="col-md-5">
+                <input id="gr_prefix" ng-model="setting.gr_prefix" type="text" placeholder="" class="form-control input-md" required="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gr_suffix">GR Suffix</label>
+            <div class="col-md-5">
+                <input id="gr_suffix" ng-model="setting.gr_suffix" type="text" placeholder="" class="form-control input-md" required="">
+            </div>
+        </div>
+        <div class="form-group">
+                <label class="col-md-4 control-label" for="pickup_point">Pickup Points</label>
+                <div class="col-md-5">
+                    <input id="pickup_point" ng-model="setting.pickup_point" type="text" class="form-control input-md">
+                </div>
+            </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="save"></label>
+            <div class="col-md-4">
+                <button id="save" ng-click="saveSetting()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
