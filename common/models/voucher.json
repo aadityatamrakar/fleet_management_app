@@ -1,0 +1,32 @@
+{
+  "name": "voucher",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "subtype": {
+      "type": "string"
+    },
+    "vch_no": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "string"
+    },
+    "narration": {
+      "type": "string"
+    },
+    "gr_no": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

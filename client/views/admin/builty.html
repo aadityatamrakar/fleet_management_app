@@ -1,10 +1,7 @@
 <h3>Builty</h3>
 
-<hr>
-<br>
-
+<hr style="margin:6px 0px;">
 <div class="row">
-
     <div class="col-md-4">
         <form class="form-horizontal">
             <fieldset>
@@ -37,13 +34,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="delivery_point">Delivery Point</label>
                     <div class="col-md-8">
-                        <input id="delivery_point" name="delivery_point" type="text" class="form-control input-md">
+                        <input id="delivery_point" ng-model="builty.delivery_point" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="pickup_point">Pickup Point</label>
                     <div class="col-md-8">
-                        <select data-type="select2" name="pickup_point" class="form-control input-md">
+                        <select data-type="select2" ng-model="builty.pickup_point" class="form-control input-md">
                             <option value="">--select--</option>
                             <option ng-repeat="pickup in pickup_point">{{ pickup }}</option>
                         </select>
@@ -60,7 +57,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="from_city">From City</label>
                     <div class="col-md-8">
-                        <input id="from_city" name="from_city" type="text" class="form-control input-md">
+                        <input id="from_city" ng-model="builty.from_city" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
@@ -101,7 +98,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="destination">Destination</label>
                     <div class="col-md-8">
-                        <input id="destination" name="destination" type="text" class="form-control input-md">
+                        <input id="destination" ng-model="builty.destination" type="text" class="form-control input-md">
                     </div>
                 </div>
                 <div class="form-group">
@@ -142,9 +139,10 @@
 <hr>
 
 <div class="row">
-    <div class="col-md-4">
-        <form method="post" novalidate class="form-horizontal">
-            <fieldset>
+    <form method="post" novalidate class="form-horizontal">
+        <fieldset>
+            <div class="col-md-4">
+
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="vehicle">Vehicle</label>
                     <div class="col-md-8">
@@ -157,15 +155,12 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="driver">Driver</label>
                     <div class="col-md-8">
-                        <input id="driver" name="driver" type="text" class="form-control input-md">
+                        <input id="driver" ng-model="builty.driver.name" type="text" class="form-control input-md">
                     </div>
                 </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="col-md-4">
-        <form method="post" novalidate class="form-horizontal">
-            <fieldset>
+            </div>
+            <div class="col-md-4">
+
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="vehicle_owner">Owner</label>
                     <div class="col-md-8">
@@ -176,27 +171,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="driver">Contact</label>
+                    <label class="col-md-4 control-label" for="driver_contact">Contact</label>
                     <div class="col-md-8">
-                        <input id="driver" name="driver" type="text" class="form-control input-md">
+                        <input id="driver_contact" ng-model="builty.driver.contact" type="text" class="form-control input-md">
                     </div>
                 </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="col-md-4">
-        <form method="post" novalidate class="form-horizontal">
-            <fieldset>
+            </div>
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="vehicle">Remark</label>
+                    <label class="col-md-4 control-label" for="vehicle_remark">Remark</label>
                     <div class="col-md-8">
-                        <input id="vehicle" name="vehicle" type="text" class="form-control input-md">
+                        <input id="vehicle_remark" ng-model="builty.vehicle_remark" type="text" class="form-control input-md">
                     </div>
                 </div>
-
-            </fieldset>
-        </form>
-    </div>
+            </div>
+        </fieldset>
+    </form>
 </div>
 
 <hr>
@@ -204,38 +194,102 @@
 <div class="row">
 
     <div class="col-md-8">
-        <table class="table table-striped table-responsive">
-            <thead>
-                <tr>
-                    <th colspan="6">Package Material Detail</th>
-                    <th>
-                        <button data-toggle="modal" data-target="#packageMaterialDetail" class="btn btn-xs btn-primary">Add Material</button>
-                    </th>
-                </tr>
-                <tr>
-                    <th>No of Pkgs</th>
-                    <th>Material</th>
-                    <th>Qty.</th>
-                    <th>UOM</th>
-                    <th>Pay Rate</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="m in builty.materials">
-                    <td>{{ m.no_of_pkg }}</td>
-                    <td>{{ m.material }}</td>
-                    <td>{{ m.quantity }}</td>
-                    <td>{{ m.uom }}</td>
-                    <td>₹ {{ m.rate }}</td>
-                    <td>₹ {{ m.total }}</td>
-                    <td>
-                        <button class="btn btn-xs btn-danger" ng-click="delPkg($index)">Del</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="6">Package Material Detail</th>
+                            <th>
+                                <button data-toggle="modal" data-target="#packageMaterialDetail" class="pull-right btn btn-xs btn-primary">Add Material</button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>No of Pkgs</th>
+                            <th>Material</th>
+                            <th>Qty.</th>
+                            <th>UOM</th>
+                            <th>Pay Rate</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="m in builty.materials">
+                            <td>{{ m.no_of_pkg }}</td>
+                            <td>{{ m.material }}</td>
+                            <td>{{ m.quantity }}</td>
+                            <td>{{ m.uom }}</td>
+                            <td>₹ {{ m.rate }}</td>
+                            <td>₹ {{ m.total }}</td>
+                            <td>
+                                <button class="btn btn-xs btn-danger" ng-click="delPkg($index)">Del</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- PACKAGE MATERIAL-->
+            <div class="col-xs-12" ng-show="vouchers.cash.length > 0">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="5">Cash Voucher Detail</th>
+                            <th>
+                                <button data-toggle="modal" data-target="#cashVoucherDetail" class="pull-right btn btn-xs btn-primary">Add Cash Voucher</button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Voucher Type</th>
+                            <th>Agst GR NO.</th>
+                            <th>Payment Date</th>
+                            <th>Vch. No.</th>
+                            <th>Amount</th>
+                            <th>Narration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="vch in vouchers.cash">
+                            <td>{{ vch.subtype }}</td>
+                            <td>{{ $scope.setting.gr_prefix }}{{ vch.gr_no }}{{ $scope.setting.gr_suffix }}</td>
+                            <td>{{ vch.date }}</td>
+                            <td>{{ vch.vch_no }}</td>
+                            <td>₹ {{ vch.amount }}</td>
+                            <td>{{ vch.narration }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12" ng-show="vouchers.diesel.length > 0">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="4">Diesel Voucher Detail</th>
+                            <th>
+                                <button data-toggle="modal" data-target="#dieselVoucherDetail" class="pull-right btn btn-xs btn-primary">Add Diesel Voucher</button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Agst GR NO.</th>
+                            <th>Payment Date</th>
+                            <th>Vch. No.</th>
+                            <th>Amount</th>
+                            <th>Narration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="vch in vouchers.diesel">
+                            <td>{{ $scope.setting.gr_prefix }}{{ vch.gr_no }}{{ $scope.setting.gr_suffix }}</td>
+                            <td>{{ vch.date }}</td>
+                            <td>{{ vch.vch_no }}</td>
+                            <td>₹ {{ vch.amount }}</td>
+                            <td>{{ vch.narration }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- ROW -->
     </div>
 
     <div class="col-md-4">
@@ -266,7 +320,7 @@
                     <label class="col-md-4 control-label" for="cgst_tax">CGST</label>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <span class="input-group-addon">{{tax_percent.cgst}}%</span>
+                            <span class="input-group-addon">{{builty.tax_percent.cgst}}%</span>
                             <input id="cgst_tax" readonly ng-model="builty.tax.cgst" type="text" class="form-control input-md">
                         </div>
                     </div>
@@ -275,7 +329,7 @@
                     <label class="col-md-4 control-label" for="sgst_tax">SGST</label>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <span class="input-group-addon">{{tax_percent.sgst}}%</span>
+                            <span class="input-group-addon">{{builty.tax_percent.sgst}}%</span>
                             <input id="sgst_tax" readonly ng-model="builty.tax.sgst" type="text" class="form-control input-md">
                         </div>
                     </div>
@@ -284,7 +338,7 @@
                     <label class="col-md-4 control-label" for="igst_tax">IGST/UTGST</label>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <span class="input-group-addon">{{tax_percent.igst}}%</span>
+                            <span class="input-group-addon">{{builty.tax_percent.igst}}%</span>
                             <input id="igst_tax" readonly ng-model="builty.tax.igst" type="text" class="form-control input-md">
                         </div>
                     </div>
@@ -292,16 +346,39 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="total">Total</label>
                     <div class="col-md-8">
-                        <input id="total" readonly name="total" type="text" class="form-control input-md">
+                        <div class="input-group">
+                            <span class="input-group-addon">₹</span>
+                            <input id="total" readonly ng-model="builty.total" type="text" class="form-control input-md">
+                        </div>
                     </div>
                 </div>
             </fieldset>
         </form>
     </div>
-
+    <!-- PAYMENT DETAILS-->
 </div>
 <!-- ROW -->
+<div class="row">
+    <div class="col-md-12 text-center">
+        <div class="btn-group">
+            <button ng-if="builty.id" data-toggle="modal" data-target="#dieselVoucherDetail" class="btn btn-md btn-primary">Add Diesel Voucher</button>
+            <button ng-if="builty.id" data-toggle="modal" data-target="#cashVoucherDetail" class="btn btn-md btn-primary">Add Cash Voucher</button>
+            <button type="button" ng-click="saveBuilty()" class="btn btn-md btn-success">
+                <i class="glyphicon glyphicon-floppy-saved"></i> {{ builty.id?"Update":"Save" }}</button>
+            <button ng-click="reload()" type="button" class="btn btn-md btn-danger">
+                <i class="glyphicon glyphicon-remove"></i> Clear</button>
+        </div>
+    </div>
+</div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <div class="modal fade" id="packageMaterialDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -359,6 +436,111 @@
             </div>
             <div class="modal-footer">
                 <button type="button" ng-click="addPkg()" data-dismiss="modal" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cashVoucherDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Cash Voucher Details</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" novalidate method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="subtype">Voucher Type</label>
+                            <div class="col-md-5">
+                                <select id="subtype" ng-model="cash_vch.subtype" class="form-control">
+                                    <option value="Payment">Payment</option>
+                                    <option value="Receipt">Receipt</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="gr_no">GR No.</label>
+                            <div class="col-md-5">
+                                <input id="gr_no" ng-model="cash_vch.gr_no" readonly type="text" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="date">Voucher Date</label>
+                            <div class="col-md-5">
+                                <input id="date" ng-model="cash_vch.date" readonly type="text" class="form-control input-md">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="amount">Amount</label>
+                            <div class="col-md-5">
+                                <input id="amount" ng-model="cash_vch.amount" type="text" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="narration">Narration</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="narration" ng-model="cash_vch.narration"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="addCashVoucher('cash')" data-dismiss="modal" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dieselVoucherDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Diesel Voucher Details</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" novalidate method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="gr_no">GR No.</label>
+                            <div class="col-md-5">
+                                <input id="gr_no" ng-model="cash_vch.gr_no" readonly type="text" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="date">Voucher Date</label>
+                            <div class="col-md-5">
+                                <input id="date" ng-model="cash_vch.date" readonly type="text" class="form-control input-md">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="amount">Amount</label>
+                            <div class="col-md-5">
+                                <input id="amount" ng-model="cash_vch.amount" type="text" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="narration">Narration</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="narration" ng-model="cash_vch.narration"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="addCashVoucher('diesel')" data-dismiss="modal" class="btn btn-primary">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

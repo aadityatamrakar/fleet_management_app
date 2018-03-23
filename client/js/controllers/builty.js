@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('BuiltyController', function ($scope, $state, Company, Material, Setting, Party, Vehicle, $stateParams, ngNotify, $filter) {
+  .controller('BuiltyController', function ($scope, $state, Builty, Voucher, Company, Material, Setting, Party, Vehicle, $stateParams, ngNotify, $filter) {
     $scope.pkg = {};
     var today = $filter('date')(new Date(), 'dd/MM/yyyy');
     $scope.pickup_point = [];
@@ -9,7 +9,21 @@ angular
     $scope.companies = Company.find();
     $scope.vehicles = [];
     $scope.vehicle_owner = [];
-    $scope.tax_percent = {igst: 0, sgst: 0, cgst: 0};
+    $scope.builty = { materials: [], gr_date: today, tax_percent: { igst: 0, sgst: 0, cgst: 0 } };
+    $scope.vouchers = { cash: [], diesel: [] };
+    var gr_no;
+    $scope.cash_vch = { date: today };
+    Builty.findOne({
+      filter: {
+        order: 'gr_no DESC',
+        fields: { gr_no: 1 }
+      }
+    }).$promise.then(function (record) {
+      if (record && record.gr_no) {
+        gr_no = parseInt(record.gr_no) + 1;
+      } else gr_no = 1;
+      $scope.builty.gr_no = gr_no;
+    });
 
     function getVehicles(cb) {
       Vehicle.find()
@@ -26,6 +40,9 @@ angular
         })
     }
     getVehicles();
+    $scope.reload = function () {
+      window.location.reload();
+    }
 
     function getSetting(cb) {
       Setting.find()
@@ -45,7 +62,37 @@ angular
       $scope.pickup_point = $scope.setting.pickup_point.split(',');
     });
 
-    $scope.builty = { materials: [], gr_date: today, gr_no: 1 };
+    $scope.saveBuilty = function () {
+      if (!$scope.builty.hasOwnProperty("id")) {
+        if (confirm("Confirm Save ?")) {
+          Builty
+            .create($scope.builty)
+            .$promise
+            .then(function (builty) {
+              if (builty.id) {
+                $scope.builty = builty;
+                ngNotify.set('Builty Saved.', 'success');
+                $scope.cash_vch.gr_no = builty.gr_no;
+                $scope.cash_vch.builtyId = builty.id;
+              }
+            })
+        }
+      } else {
+        $scope.builty.$save();
+        ngNotify.set('Builty Updated.', 'success');
+      }
+    }
+
+    $scope.addCashVoucher = function (type) {
+      $scope.cash_vch.type = type;
+      Voucher
+        .create($scope.cash_vch)
+        .$promise.then(function (cash_vch) {
+          $scope.vouchers[cash_vch.type].push(cash_vch);
+          $scope.cash_vch = { gr_no: $scope.builty.gr_no, builtyId: $scope.builty.id, date: today };
+          ngNotify.set('Voucher Added.', 'success');
+        });
+    }
 
     $scope.addPkg = function () {
       $scope.pkg.total = parseFloat($scope.pkg.rate) * parseFloat($scope.pkg.quantity);
@@ -63,6 +110,7 @@ angular
     $scope.updateContact = function ($element) {
       var index = ($scope.parties.map(c => { return c.id })).indexOf($scope.builty[$element]);
       var party = $scope.parties[index];
+      $scope.builty[$element + '_name'] = party.legal_name;
       $scope.builty[$element + '_address'] = party.address;
       $scope.builty[$element + '_contact'] = party.contact;
       $scope.builty[$element + '_gstin'] = party.gstin;
@@ -85,26 +133,27 @@ angular
       }
     }
 
-    $scope.updatePaidBy = function (){
+    $scope.updatePaidBy = function () {
       var res;
-      if($scope.builty.paid_by == "GTA") {
-        res = $scope.companies.filter(c => { if($scope.builty.company == c.id ) return c; });
-        var company_state_code = res[0].state.substr(0,2);
-        var consignee_state_code = $scope.builty.consignee_gstin.substr(0,2);
-        if(company_state_code != consignee_state_code) {
-          $scope.tax_percent = {igst: 5, sgst: 0, cgst: 0};
-        }else{
-          $scope.tax_percent = {igst: 0, sgst: 2.5, cgst: 2.5};
+      if ($scope.builty.paid_by == "GTA") {
+        res = $scope.companies.filter(c => { if ($scope.builty.company == c.id) return c; });
+        var company_state_code = res[0].state.substr(0, 2);
+        var consignee_state_code = $scope.builty.consignee_gstin.substr(0, 2);
+        if (company_state_code != consignee_state_code) {
+          $scope.builty.tax_percent = { igst: 5, sgst: 0, cgst: 0 };
+        } else {
+          $scope.builty.tax_percent = { igst: 0, sgst: 2.5, cgst: 2.5 };
         }
-      }else{
-        var consignee_state_code = $scope.builty.consignee_gstin.substr(0,2);
-        var consignor_state_code = $scope.builty.consignor_gstin.substr(0,2);
-        if(consignor_state_code != consignee_state_code) {
-          $scope.tax_percent = {igst: 5, sgst: 0, cgst: 0};
-        }else{
-          $scope.tax_percent = {igst: 0, sgst: 2.5, cgst: 2.5};
+      } else {
+        var consignee_state_code = $scope.builty.consignee_gstin.substr(0, 2);
+        var consignor_state_code = $scope.builty.consignor_gstin.substr(0, 2);
+        if (consignor_state_code != consignee_state_code) {
+          $scope.builty.tax_percent = { igst: 5, sgst: 0, cgst: 0 };
+        } else {
+          $scope.builty.tax_percent = { igst: 0, sgst: 2.5, cgst: 2.5 };
         }
       }
+      calculate_tax();
     }
 
     function calculate_freight() {
@@ -118,9 +167,9 @@ angular
     function calculate_tax() {
       $scope.builty.total = $scope.builty.freight * 1.05;
       $scope.builty.tax = {
-        igst: ($scope.tax_percent.igst/100) * $scope.builty.freight,
-        sgst: ($scope.tax_percent.sgst/100) * $scope.builty.freight,
-        cgst: ($scope.tax_percent.cgst/100) * $scope.builty.freight
+        igst: ($scope.builty.tax_percent.igst / 100) * $scope.builty.freight,
+        sgst: ($scope.builty.tax_percent.sgst / 100) * $scope.builty.freight,
+        cgst: ($scope.builty.tax_percent.cgst / 100) * $scope.builty.freight
       }
     }
 

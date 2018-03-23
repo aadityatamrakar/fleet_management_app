@@ -1,0 +1,38 @@
+{
+  "name": "builty",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "gr_no": {
+      "type": "string",
+      "required": true
+    },
+    "paid_by": {
+      "type": "string",
+      "required": true
+    },
+    "consignee": {
+      "type": "string",
+      "required": true
+    },
+    "consignor": {
+      "type": "string",
+      "required": true
+    },
+    "vehicle": {
+      "type": "string",
+      "required": true
+    },
+    "driver": {
+      "type": "object",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

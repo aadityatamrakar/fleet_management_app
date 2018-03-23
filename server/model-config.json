@@ -53,5 +53,13 @@
   "company": {
     "dataSource": "db",
     "public": true
+  },
+  "voucher": {
+    "dataSource": "db",
+    "public": true
+  },
+  "builty": {
+    "dataSource": "db",
+    "public": true
   }
 }
