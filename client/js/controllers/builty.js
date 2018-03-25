@@ -184,6 +184,7 @@ angular
     $scope.printBuilty = function () {
       var $company = $scope.companies[$scope.companies.map( c=> { return c.id; }).indexOf($scope.builty.company)];
       var $builty = $scope.builty;
+      var $margin = [];
 
       var doc = new jsPDF();
       doc.setFont('times');
@@ -248,12 +249,17 @@ angular
       doc.text(128, 118, 'Total');
       doc.line(8, 121, 138, 121); // material heading line 
       doc.setFontType('normal');
-      doc.text(8, 126, $builty.materials[0]['no_of_pkg']);
-      doc.text(35, 126, $builty.materials[0]['material']);
-      doc.text(85, 126, String($builty.materials[0]['quantity']), null, null, 'right');
-      doc.text(105, 126, $builty.materials[0]['uom'], null, null, 'right');
-      doc.text(120, 126, String($builty.materials[0]['rate']), null, null, 'right');
-      doc.text(138, 126, String($builty.materials[0]['total']), null, null, 'right');
+      
+      $margin.top = 126;
+      $builty.materials.forEach(m => {
+        doc.text(8,   $margin.top, m.no_of_pkg);
+        doc.text(35,  $margin.top, m.material);
+        doc.text(85,  $margin.top, String(m.quantity), null, null, 'right');
+        doc.text(105, $margin.top, m.uom, null, null, 'right');
+        doc.text(120, $margin.top, String(m.rate), null, null, 'right');
+        doc.text(138, $margin.top, String(m.total), null, null, 'right');
+        $margin.top += 6;
+      });
 
       doc.line(5, 140, 145, 140);
       doc.text(8, 145, 'Consignee Sign');
@@ -272,7 +278,7 @@ angular
       doc.text(170, 134, ': ' + String($builty.tax.cgst));
       doc.text(170, 142, ': ' + String($builty.tax.sgst));
       doc.setFontType('bold');
-      doc.text(170, 150, ': ' + String($builty.total));
+      doc.text(170, 150, ': Rs.' + String($builty.total) + '/-');
       doc.setFontType('normal');
       doc.rect(5, 160, 200, 60); // Cash Advance
       doc.rect(5, 225, 200, 60); // Diesel Advance
