@@ -363,6 +363,8 @@
         <div class="btn-group">
             <button ng-if="builty.id" data-toggle="modal" data-target="#dieselVoucherDetail" class="btn btn-md btn-primary">Add Diesel Voucher</button>
             <button ng-if="builty.id" data-toggle="modal" data-target="#cashVoucherDetail" class="btn btn-md btn-primary">Add Cash Voucher</button>
+            <button type="button" ng-click="printBuilty()" class="btn btn-md btn-primary">
+                <i class="glyphicon glyphicon-print"></i> Print</button>
             <button type="button" ng-click="saveBuilty()" class="btn btn-md btn-success">
                 <i class="glyphicon glyphicon-floppy-saved"></i> {{ builty.id?"Update":"Save" }}</button>
             <button ng-click="reload()" type="button" class="btn btn-md btn-danger">

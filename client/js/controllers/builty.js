@@ -180,8 +180,105 @@ angular
       });
     }
     init();
-  });
 
+    $scope.printBuilty = function () {
+      var $company = $scope.companies[$scope.companies.map( c=> { return c.id; }).indexOf($scope.builty.company)];
+      var $builty = $scope.builty;
+
+      var doc = new jsPDF();
+      doc.setFont('times');
+      doc.rect(5, 35, 200, 120); // Builty
+      doc.setFontSize(30);
+      doc.text(100, 15, $company.title, null, null, 'center');
+
+      doc.setFontSize(15);
+      doc.text(100, 24, $company.address, null, null, 'center');
+      doc.text(100, 30, 'PH: '+String($company.contact) + ' GSTIN:' + $company.gstin, null, null, 'center');
+
+      doc.rect(5, 35, 120, 32); // Consignee Details
+      doc.setFontSize(20);
+      doc.text(8, 44, $builty.consignee_name);
+      doc.setFontSize(15);
+      doc.text(8, 52, $builty.consignee_address);
+      doc.text(8, 58, $builty.consignee_contact);
+      doc.text(8, 64, $builty.consignee_gstin);
+
+      doc.rect(5, 67, 120, 32); // Consignor Details
+      doc.setFontSize(20);
+      doc.text(8, 76, $builty.consignor_name);
+      doc.setFontSize(15);
+      doc.text(8, 84, $builty.consignor_address);
+      doc.text(8, 90, $builty.consignor_contact);
+      doc.text(8, 96, $builty.consignor_gstin);
+
+      doc.rect(125, 35, 80, 64); // Basic
+      doc.setFontSize(16);
+      doc.text(127, 44, 'GR NO');
+      doc.text(127, 52, 'DATE');
+      doc.setFontSize(18);
+      doc.setFontType('bold');
+      doc.text(150, 44, ': ' + $builty.gr_no_view);
+      doc.setFontType('normal');
+      doc.text(150, 52, ': ' + $builty.gr_date);
+
+      doc.rect(125, 55, 80, 22); // Basic
+      doc.setFontSize(16);
+      doc.text(127, 61, 'Pickup Point');
+      doc.text(127, 68, $builty.pickup_point);
+      doc.text(127, 74, 'City');
+      doc.text(160, 74, ': ' + $builty.from_city);
+
+      doc.text(127, 83, 'Delivery Point');
+      doc.text(127, 90, $builty.delivery_point);
+      doc.text(127, 96, 'Destination');
+      doc.text(160, 96, ': ' + $builty.destination);
+
+      doc.rect(5, 99, 200, 11); // Invoice Details 
+      doc.text(8, 106, 'Invoice No : 123');
+      doc.text(74, 106, 'Date : 10/05/2018');
+      doc.text(150, 106, 'Amount : 25,00,000/-');
+
+      doc.rect(5, 110, 140, 45); // Material Details
+      doc.setFontSize(13);
+      doc.text(8, 118, 'No of Pkg');
+      doc.text(35, 118, 'Material');
+      doc.text(78, 118, 'Qty.');
+      doc.text(95, 118, 'UOM');
+      doc.text(112, 118, 'Rate');
+      doc.text(128, 118, 'Total');
+      doc.line(8, 121, 138, 121); // material heading line 
+      doc.setFontType('normal');
+      doc.text(8, 126, $builty.materials[0]['no_of_pkg']);
+      doc.text(35, 126, $builty.materials[0]['material']);
+      doc.text(85, 126, String($builty.materials[0]['quantity']), null, null, 'right');
+      doc.text(105, 126, $builty.materials[0]['uom'], null, null, 'right');
+      doc.text(120, 126, String($builty.materials[0]['rate']), null, null, 'right');
+      doc.text(138, 126, String($builty.materials[0]['total']), null, null, 'right');
+
+      doc.line(5, 140, 145, 140);
+      doc.text(8, 145, 'Consignee Sign');
+      doc.text(138, 145, 'GTA Sign', null, null, 'right');
+
+      doc.rect(145, 110, 60, 45); // TOTAL Details
+      doc.setFontSize(14);
+      doc.text(146, 118, 'FREIGHT');
+      doc.text(146, 126, 'IGST');
+      doc.text(146, 134, 'CGST');
+      doc.text(146, 142, 'SGST');
+      doc.text(146, 150, 'TOTAL');
+      doc.setFontSize(15);
+      doc.text(170, 118, ': ' + String($builty.freight));
+      doc.text(170, 126, ': ' + String($builty.tax.igst));
+      doc.text(170, 134, ': ' + String($builty.tax.cgst));
+      doc.text(170, 142, ': ' + String($builty.tax.sgst));
+      doc.setFontType('bold');
+      doc.text(170, 150, ': ' + String($builty.total));
+      doc.setFontType('normal');
+      doc.rect(5, 160, 200, 60); // Cash Advance
+      doc.rect(5, 225, 200, 60); // Diesel Advance
+      doc.save('builty.pdf');
+    }
+  });
 
 /*
 
