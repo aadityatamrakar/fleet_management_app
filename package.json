@@ -12,6 +12,8 @@
   "dependencies": {
     "compression": "^1.0.3",
     "cors": "^2.8.1",
+    "csv": "^2.0.0",
+    "jsonexport": "^2.0.11",
     "loopback": "^3.0.0",
     "loopback-boot": "^2.6.5",
     "loopback-connector-mongodb": "^1.18.1",
