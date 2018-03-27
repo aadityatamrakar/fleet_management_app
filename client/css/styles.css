@@ -1,3 +1,25 @@
 .form-group {
     margin-bottom: 5px;
 }
+
+.background-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  
+    display: block;
+    /* background-image: url('https://images.pexels.com/photos/193667/pexels-photo-193667.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=768&w=1368'); */
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover; 
+
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    /* -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px); */
+    
+  }
+  

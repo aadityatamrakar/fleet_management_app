@@ -76,10 +76,18 @@ angular
                 $scope.cash_vch.builtyId = builty.id;
               }
             })
+        }else{
+          console.log($scope.builty);
         }
       } else {
         $scope.builty.$save();
         ngNotify.set('Builty Updated.', 'success');
+      }
+    }
+
+    $scope.checkgstin= function(s){
+      if(!$scope.builty[s]){
+        ngNotify.set('Check GSTIN', 'warn');
       }
     }
 

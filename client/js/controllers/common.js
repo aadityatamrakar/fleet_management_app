@@ -4,7 +4,7 @@ angular
         $scope.materials = [];
         $scope.material = {};
 
-        $scope.load = function() {
+        $scope.load = function () {
             Material
                 .find()
                 .$promise
@@ -29,7 +29,7 @@ angular
 
         $scope.edit = function (id) {
             Material
-                .findById({ id: id})
+                .findById({ id: id })
                 .$promise
                 .then(function (material) {
                     $scope.material = material;
@@ -60,14 +60,14 @@ angular
     });
 
 
-    angular
+angular
     .module('app')
     .controller('CompanyController', function ($scope, $state, Company, $stateParams, ngNotify, $timeout) {
         $scope.companies = [];
         $scope.company = {};
-        $scope.states = ["01 - JAMMU AND KASHMIR","02 - HIMACHAL PRADESH","03 - PUNJAB","04 - CHANDIGARH","05 - UTTARAKHAND","06 - HARYANA","07 - DELHI","08 - RAJASTHAN","09 - UTTAR  PRADESH","10 - BIHAR","11 - SIKKIM","12 - ARUNACHAL PRADESH","13 - NAGALAND","14 - MANIPUR","15 - MIZORAM","16 - TRIPURA","17 - MEGHLAYA","18 - ASSAM","19 - WEST BENGAL","20 - JHARKHAND","21 - ODISHA","22 - CHATTISGARH","23 - MADHYA PRADESH","24 - GUJARAT","25 - DAMAN AND DIU","26 - DADRA AND NAGAR HAVELI","27 - MAHARASHTRA","28 - ANDHRA PRADESH(BEFORE DIVISION)","29 - KARNATAKA","30 - GOA","31 - LAKSHWADEEP","32 - KERALA","33 - TAMIL NADU","34 - PUDUCHERRY","35 - ANDAMAN AND NICOBAR ISLANDS","36 - TELANGANA","37 - ANDHRA PRADESH (NEW)"]
-        
-        $scope.load = function() {
+        $scope.states = ["01 - JAMMU AND KASHMIR", "02 - HIMACHAL PRADESH", "03 - PUNJAB", "04 - CHANDIGARH", "05 - UTTARAKHAND", "06 - HARYANA", "07 - DELHI", "08 - RAJASTHAN", "09 - UTTAR  PRADESH", "10 - BIHAR", "11 - SIKKIM", "12 - ARUNACHAL PRADESH", "13 - NAGALAND", "14 - MANIPUR", "15 - MIZORAM", "16 - TRIPURA", "17 - MEGHLAYA", "18 - ASSAM", "19 - WEST BENGAL", "20 - JHARKHAND", "21 - ODISHA", "22 - CHATTISGARH", "23 - MADHYA PRADESH", "24 - GUJARAT", "25 - DAMAN AND DIU", "26 - DADRA AND NAGAR HAVELI", "27 - MAHARASHTRA", "28 - ANDHRA PRADESH(BEFORE DIVISION)", "29 - KARNATAKA", "30 - GOA", "31 - LAKSHWADEEP", "32 - KERALA", "33 - TAMIL NADU", "34 - PUDUCHERRY", "35 - ANDAMAN AND NICOBAR ISLANDS", "36 - TELANGANA", "37 - ANDHRA PRADESH (NEW)"]
+
+        $scope.load = function () {
             Company
                 .find()
                 .$promise
@@ -89,10 +89,15 @@ angular
             }
         };
 
+        $scope.checkgstin = function (s) {
+            if (!$scope.company[s]) {
+                ngNotify.set('Check GSTIN', 'warn');
+            }
+        }
 
         $scope.edit = function (id) {
             Company
-                .findById({ id: id})
+                .findById({ id: id })
                 .$promise
                 .then(function (company) {
                     $scope.company = company;
@@ -119,5 +124,16 @@ angular
                     });
             }
         };
+    })
 
+    .controller('navAdminController', function ($scope, $state, Setting) {
+        Setting.findOne({filter: {"where": {"name":"background"}}})
+        .$promise
+        .then(function (s){
+            if(s){
+                $scope.background = s.value;
+                console.log($scope.background);
+                document.querySelector('.background-image').style.backgroundImage = "url(" + $scope.background + ")";
+            }
+        });
     });

@@ -16,7 +16,8 @@ angular
         .state('admin', {
           abstract: true,
           url: '/admin',
-          templateUrl: 'views/nav_admin.html'
+          templateUrl: 'views/nav_admin.html',
+          controller: 'navAdminController'
         })
         
         .state('admin.index', {
