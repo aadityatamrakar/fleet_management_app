@@ -19,7 +19,4 @@ node_modules
 npm-debug.log
 client/vendor
 build/views
-build/assets
 build/fonts
-build/*
-build
