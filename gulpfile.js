@@ -37,7 +37,7 @@ gulp.task('html', function () {
 gulp.task('css', function () {
     return gulp.src('client/css/*.css')
         .pipe(minifyCSS())
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build/assets'))
 });
 
 gulp.task('js', function () {
@@ -72,20 +72,20 @@ gulp.task('js', function () {
                 global_defs: {} 
             }
         }))
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build/assets'))
 });
 
 gulp.task('vendor_css', function () {
     return gulp.src(vendor_files.css)
         .pipe(minifyCSS())
         .pipe(concat('vendor.min.css'))
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build/assets'))
 });
 
 gulp.task('vendor_js', function () {
     return gulp.src(vendor_files.js)
         .pipe(concat('vendor.min.js'))
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build/assets'))
 });
 
 gulp.task('fonts', function () {

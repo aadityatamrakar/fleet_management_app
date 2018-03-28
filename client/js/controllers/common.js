@@ -130,7 +130,7 @@ angular
         Setting.findOne({filter: {"where": {"name":"background"}}})
         .$promise
         .then(function (s){
-            if(s){
+            if(s && s.value != ''){
                 $scope.background = s.value;
                 console.log($scope.background);
                 document.querySelector('.background-image').style.backgroundImage = "url(" + $scope.background + ")";

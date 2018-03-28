@@ -18,4 +18,6 @@ coverage
 node_modules
 npm-debug.log
 client/vendor
-build
+build/views
+build/assets
+build/fonts
