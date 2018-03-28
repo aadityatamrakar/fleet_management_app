@@ -9,7 +9,7 @@ angular
         .$promise
         .then(function (setting) {
           $scope.setting = {};
-          setting.forEach(element => {
+          setting.forEach(function(element) {
             $scope.saved[element.name] = element;
             $scope.setting[element.name] = element.value;
           });
@@ -19,7 +19,7 @@ angular
 
     $scope.saveSetting = function () {
       var setting = Object.keys($scope.setting);
-      setting.forEach(e => {
+      setting.forEach(function(e) {
         if ($scope.saved[e]) {
           $scope.saved[e].value = $scope.setting[e];
           $scope.saved[e].$save();

@@ -13,6 +13,12 @@
     "compression": "^1.0.3",
     "cors": "^2.8.1",
     "csv": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
     "jsonexport": "^2.0.11",
     "loopback": "^3.0.0",
     "loopback-boot": "^2.6.5",
@@ -25,6 +31,9 @@
   },
   "devDependencies": {
     "bower": "^1.5.2",
+    "gulp": "^3.9.1",
+    "gulp-minify": "^2.1.0",
+    "gulp-ng-annotate": "^2.1.0",
     "jshint": "^2.5.6",
     "tape": "^4.2.0"
   },

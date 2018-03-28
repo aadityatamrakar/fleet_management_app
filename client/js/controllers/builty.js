@@ -30,8 +30,8 @@ angular
         .$promise
         .then(function (owner) {
           $scope.vehicle_owner = owner;
-          owner.forEach(element => {
-            element.vehicles.forEach(reg => {
+          owner.forEach(function (element) {
+            element.vehicles.forEach(function (reg) {
               reg.owner = element.id;
               $scope.vehicles.push(reg);
             })
@@ -49,7 +49,7 @@ angular
         .$promise
         .then(function (setting) {
           $scope.setting = {};
-          setting.forEach(element => {
+          setting.forEach(function (element) {
             $scope.setting[element.name] = element.value;
           });
           cb();
@@ -116,7 +116,7 @@ angular
     $scope.parties = Party.find();
 
     $scope.updateContact = function ($element) {
-      var index = ($scope.parties.map(c => { return c.id })).indexOf($scope.builty[$element]);
+      var index = ($scope.parties.map(function(c) { return c.id })).indexOf($scope.builty[$element]);
       var party = $scope.parties[index];
       $scope.builty[$element + '_name'] = party.legal_name;
       $scope.builty[$element + '_address'] = party.address;
@@ -125,14 +125,14 @@ angular
     }
 
     $scope.updateMaterial = function () {
-      var index = ($scope.materials.map(c => { return c.name })).indexOf($scope.pkg.material);
+      var index = ($scope.materials.map(function(c) { return c.name })).indexOf($scope.pkg.material);
       var material = $scope.materials[index];
       $scope.pkg.uom = material.uom;
       $scope.pkg.rate = material.rate;
     }
 
     $scope.updateVehicle = function () {
-      var res = $scope.vehicles.filter(c => { if ($scope.builty.vehicle == c.reg_no) { return c } });
+      var res = $scope.vehicles.filter(function(c) { if ($scope.builty.vehicle == c.reg_no) { return c } });
       if (res.length > 0) {
         $scope.builty.vehicle_owner = res[0].owner;
         setTimeout(function () {
@@ -144,7 +144,7 @@ angular
     $scope.updatePaidBy = function () {
       var res;
       if ($scope.builty.paid_by == "GTA") {
-        res = $scope.companies.filter(c => { if ($scope.builty.company == c.id) return c; });
+        res = $scope.companies.filter(function(c) { if ($scope.builty.company == c.id) return c; });
         var company_state_code = res[0].state.substr(0, 2);
         var consignee_state_code = $scope.builty.consignee_gstin.substr(0, 2);
         if (company_state_code != consignee_state_code) {
@@ -166,7 +166,7 @@ angular
 
     function calculate_freight() {
       $scope.builty.freight = 0;
-      $scope.builty.materials.forEach(e => {
+      $scope.builty.materials.forEach(function(e) {
         $scope.builty.freight += parseFloat(e.total);
       });
       calculate_tax();
@@ -190,7 +190,7 @@ angular
     init();
 
     $scope.printBuilty = function () {
-      var $company = $scope.companies[$scope.companies.map( c=> { return c.id; }).indexOf($scope.builty.company)];
+      var $company = $scope.companies[$scope.companies.map(function (c) { return c.id; }).indexOf($scope.builty.company)];
       var $builty = $scope.builty;
       var $margin = [];
 
@@ -259,7 +259,7 @@ angular
       doc.setFontType('normal');
       
       $margin.top = 126;
-      $builty.materials.forEach(m => {
+      $builty.materials.forEach(function (m) {
         doc.text(8,   $margin.top, m.no_of_pkg);
         doc.text(35,  $margin.top, m.material);
         doc.text(85,  $margin.top, String(m.quantity), null, null, 'right');
