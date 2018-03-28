@@ -5,8 +5,9 @@ var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var gp_rename = require('gulp-rename');
 var minify = require('gulp-minify');
-var ngAnnotate = require('gulp-ng-annotate')
-
+var ngAnnotate = require('gulp-ng-annotate');
+javascriptObfuscator = require('gulp-javascript-obfuscator');
+var fs = require('fs');
 
 var vendor_files = {
     js: [
@@ -17,6 +18,7 @@ var vendor_files = {
         "client/vendor/angular-ui-router/release/angular-ui-router.min.js",
         "client/vendor/angular-loading-bar/build/loading-bar.min.js",
         "client/vendor/ng-notify/dist/ng-notify.min.js",
+        "build/assets/lb-services.js",
     ],
     css: [
         "client/vendor/bootstrap/dist/css/bootstrap.css",
@@ -27,6 +29,18 @@ var vendor_files = {
         "client/public/fonts/*.*"
     ]
 };
+
+gulp.task('lbServices', function () {
+    return gulp.src("client/js/services/lb-services.js")
+        .pipe(minify({
+            mangle: false,
+            ext: {
+                min: '.js'
+            },
+            noSource: true,
+        }))
+        .pipe(gulp.dest('build/assets'))
+});
 
 gulp.task('html', function () {
     return gulp.src(['client/views/*/*.html', 'client/views/*.html'])
@@ -41,7 +55,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
-    return gulp.src(['client/js/*.js', 'client/js/*/*.js'])
+    return gulp.src(['client/js/*.js', 'client/js/Controllers/*.js'])
         .pipe(concat('app.min.js'))
         .pipe(ngAnnotate())
         .pipe(uglify())
@@ -50,27 +64,20 @@ gulp.task('js', function () {
             ext: {
                 min: '.js'
             },
-            noSource: true,
-            compress: {
-                sequences: true,
-                properties: true,
-                dead_code: true,
-                drop_debugger: true,
-                unsafe: false,
-                conditionals: true,
-                comparisons: true,
-                evaluate: true,
-                booleans: true,
-                loops: true,
-                unused: true,
-                hoist_funs: true,
-                hoist_vars: false,
-                if_return: true,
-                join_vars: true,
-                side_effects: true,
-                warnings: true,
-                global_defs: {} 
-            }
+            noSource: true
+        }))
+        .pipe(javascriptObfuscator({
+            compact: true,
+            deadCodeInjection: true,
+            deadCodeInjectionThreshold: 0.4,
+            debugProtection: true,
+            debugProtectionInterval: true,
+            identifierNamesGenerator: 'hexadecimal',
+            log: false,
+            rotateStringArray: true,
+            selfDefending: true,
+            stringArray: true,
+            target: 'browser'
         }))
         .pipe(gulp.dest('build/assets'))
 });
@@ -93,5 +100,17 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest('build/fonts'))
 });
 
+gulp.task('bundlejs', ['js', 'vendor_js'], function () {
+    return gulp.src(['build/assets/vendor.min.js', 'build/assets/app.min.js'])
+        .pipe(concat('bundle.min.js'))
+        .pipe(gulp.dest('build/assets'))
+});
 
-gulp.task('default', ['html', 'css', 'js', 'vendor_css', 'vendor_js', 'fonts']);
+gulp.task('clean:appjs', ['bundlejs'], function () {
+    fs.unlinkSync('build/assets/app.min.js');
+    fs.unlinkSync('build/assets/vendor.min.js');
+    fs.unlinkSync('build/assets/lb-services.js');
+    return [];
+});
+
+gulp.task('default', ['lbServices', 'html', 'css', 'js', 'vendor_css', 'vendor_js', 'fonts', 'bundlejs', 'clean:appjs']);
