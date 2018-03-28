@@ -21,4 +21,5 @@ client/vendor
 build/views
 build/assets
 build/fonts
+build/*
 build

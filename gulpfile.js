@@ -19,13 +19,11 @@ var vendor_files = {
         "client/vendor/angular-ui-router/release/angular-ui-router.min.js",
         "client/vendor/angular-loading-bar/build/loading-bar.min.js",
         "client/vendor/ng-notify/dist/ng-notify.min.js",
-        // "build/assets/lb-services.js",
     ],
     css: [
         "client/vendor/bootstrap/dist/css/bootstrap.css",
         "client/vendor/angular-loading-bar/build/loading-bar.min.css",
-        "client/vendor/ng-notify/dist/ng-notify.min.css",
-        "build/assets/style.css"
+        "client/vendor/ng-notify/dist/ng-notify.min.css"
     ],
     fonts: [
         "client/public/fonts/*.*"
@@ -60,6 +58,7 @@ gulp.task('main_html', function () {
 
 gulp.task('css', function () {
     return gulp.src('client/css/*.css')
+        .pipe(concat('styles.css'))
         .pipe(minifyCSS())
         .pipe(gulp.dest('build/assets'))
 });
@@ -123,4 +122,4 @@ gulp.task('clean:appjs', ['js', 'vendor_js', 'vendor_css'], function () {
     return [];
 });
 
-gulp.task('default', ['lbServices', 'html', 'main_html', 'js', 'vendor_css', 'vendor_js', 'fonts', 'clean:appjs']);
+gulp.task('default', ['lbServices', 'html', 'main_html', 'js', 'vendor_css', 'vendor_js', 'fonts']);
