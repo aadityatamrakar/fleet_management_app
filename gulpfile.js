@@ -7,6 +7,7 @@ var gp_rename = require('gulp-rename');
 var minify = require('gulp-minify');
 var ngAnnotate = require('gulp-ng-annotate');
 javascriptObfuscator = require('gulp-javascript-obfuscator');
+var minifyInline = require('gulp-minify-inline');
 var fs = require('fs');
 
 var vendor_files = {
@@ -18,12 +19,13 @@ var vendor_files = {
         "client/vendor/angular-ui-router/release/angular-ui-router.min.js",
         "client/vendor/angular-loading-bar/build/loading-bar.min.js",
         "client/vendor/ng-notify/dist/ng-notify.min.js",
-        "build/assets/lb-services.js",
+        // "build/assets/lb-services.js",
     ],
     css: [
         "client/vendor/bootstrap/dist/css/bootstrap.css",
         "client/vendor/angular-loading-bar/build/loading-bar.min.css",
         "client/vendor/ng-notify/dist/ng-notify.min.css",
+        "build/assets/style.css"
     ],
     fonts: [
         "client/public/fonts/*.*"
@@ -46,6 +48,14 @@ gulp.task('html', function () {
     return gulp.src(['client/views/*/*.html', 'client/views/*.html'])
         .pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(gulp.dest('build/views'))
+});
+
+gulp.task('main_html', function () {
+    return gulp.src('client/public.html')
+        .pipe(concat('index.html'))
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(minifyInline())
+        .pipe(gulp.dest('build'))
 });
 
 gulp.task('css', function () {
@@ -81,7 +91,7 @@ gulp.task('js', function () {
         .pipe(gulp.dest('build/assets'))
 });
 
-gulp.task('vendor_css', function () {
+gulp.task('vendor_css', ['css'], function () {
     return gulp.src(vendor_files.css)
         .pipe(minifyCSS())
         .pipe(concat('vendor.min.css'))
@@ -105,11 +115,12 @@ gulp.task('bundlejs', ['js', 'vendor_js'], function () {
         .pipe(gulp.dest('build/assets'))
 });
 
-gulp.task('clean:appjs', ['bundlejs'], function () {
-    fs.unlinkSync('build/assets/vendor.min.js');
-    fs.unlinkSync('build/assets/app.min.js');
-    fs.unlinkSync('build/assets/lb-services.js');
+gulp.task('clean:appjs', ['js', 'vendor_js', 'vendor_css'], function () {
+    // fs.unlinkSync('build/assets/vendor.min.js');
+    // fs.unlinkSync('build/assets/app.min.js');
+    // fs.unlinkSync('build/assets/lb-services.js');
+    fs.unlinkSync('build/assets/styles.css');
     return [];
 });
 
-gulp.task('default', ['lbServices', 'html', 'css', 'js', 'vendor_css', 'vendor_js', 'fonts']);
+gulp.task('default', ['lbServices', 'html', 'main_html', 'js', 'vendor_css', 'vendor_js', 'fonts', 'clean:appjs']);
