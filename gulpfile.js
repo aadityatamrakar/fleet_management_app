@@ -69,11 +69,10 @@ gulp.task('js', function () {
         .pipe(javascriptObfuscator({
             compact: true,
             deadCodeInjection: true,
-            deadCodeInjectionThreshold: 0.4,
+            deadCodeInjectionThreshold: 0.5,
             debugProtection: true,
             debugProtectionInterval: true,
             identifierNamesGenerator: 'hexadecimal',
-            log: false,
             rotateStringArray: true,
             selfDefending: true,
             stringArray: true,
@@ -107,10 +106,10 @@ gulp.task('bundlejs', ['js', 'vendor_js'], function () {
 });
 
 gulp.task('clean:appjs', ['bundlejs'], function () {
-    fs.unlinkSync('build/assets/app.min.js');
     fs.unlinkSync('build/assets/vendor.min.js');
+    fs.unlinkSync('build/assets/app.min.js');
     fs.unlinkSync('build/assets/lb-services.js');
     return [];
 });
 
-gulp.task('default', ['lbServices', 'html', 'css', 'js', 'vendor_css', 'vendor_js', 'fonts', 'bundlejs', 'clean:appjs']);
+gulp.task('default', ['lbServices', 'html', 'css', 'js', 'vendor_css', 'vendor_js', 'fonts']);
